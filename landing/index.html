@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>FreeGateway — Download</title>
+  <meta name="description" content="FreeGateway: aggregate free LLM providers behind one OpenAI-compatible endpoint. Download the desktop app for macOS or Windows." />
+  <style>
+    :root {
+      --bg: #0b1020;
+      --card: #141a2e;
+      --accent: #6ea8fe;
+      --accent2: #7cf0c7;
+      --text: #e8ecf4;
+      --muted: #9aa4bf;
+      --border: #232a45;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background: radial-gradient(1200px 600px at 50% -10%, #1a2345, var(--bg));
+      color: var(--text);
+      min-height: 100vh;
+    }
+    .wrap { max-width: 960px; margin: 0 auto; padding: 48px 24px; }
+    header { text-align: center; margin-bottom: 40px; }
+    h1 { font-size: 44px; margin: 0 0 12px; letter-spacing: -0.5px; }
+    .tag { color: var(--muted); font-size: 18px; max-width: 640px; margin: 0 auto 28px; line-height: 1.5; }
+    .badge { display: inline-block; padding: 6px 12px; border: 1px solid var(--border); border-radius: 999px; color: var(--muted); font-size: 13px; margin: 0 4px 8px; }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 32px;
+      margin-bottom: 24px;
+      box-shadow: 0 10px 40px rgba(0,0,0,.35);
+    }
+    .download-row { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; justify-content: center; margin-top: 16px; }
+    .btn {
+      display: inline-flex; align-items: center; gap: 10px;
+      padding: 14px 22px; border-radius: 10px; font-weight: 600; font-size: 16px;
+      text-decoration: none; border: 1px solid transparent; cursor: pointer;
+      transition: transform .12s ease, box-shadow .12s ease, background .12s ease;
+    }
+    .btn:hover { transform: translateY(-1px); }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      color: #0b1020;
+      box-shadow: 0 6px 24px rgba(110,168,254,.35);
+    }
+    .btn-secondary { background: #1c2340; color: var(--text); border-color: var(--border); }
+    .btn-secondary:hover { background: #222a4a; }
+    .os-hint { color: var(--muted); font-size: 14px; text-align: center; margin-top: 10px; }
+    .choices { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; margin-top: 24px; }
+    .choice {
+      background: #10162b; border: 1px solid var(--border); border-radius: 12px;
+      padding: 16px; text-align: center;
+    }
+    .choice h3 { margin: 0 0 6px; font-size: 15px; }
+    .choice p { margin: 0 0 12px; color: var(--muted); font-size: 13px; }
+    .choice a { font-size: 14px; color: var(--accent); text-decoration: none; }
+    .choice a:hover { text-decoration: underline; }
+    .features { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; margin-top: 12px; }
+    .feat { background: #10162b; border: 1px solid var(--border); border-radius: 12px; padding: 16px; }
+    .feat h4 { margin: 0 0 6px; font-size: 15px; }
+    .feat p { margin: 0; color: var(--muted); font-size: 13px; line-height: 1.45; }
+    footer { text-align: center; color: var(--muted); font-size: 13px; margin-top: 32px; }
+    footer a { color: var(--accent); text-decoration: none; }
+    .loading { opacity: .6; pointer-events: none; }
+    @media (max-width: 520px) { h1 { font-size: 34px; } }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <h1>FreeGateway</h1>
+      <p class="tag">Aggregate free LLM tiers from 34+ providers behind one OpenAI-compatible endpoint. Run it locally as a desktop app — no terminal, no Docker.</p>
+      <div>
+        <span class="badge">OpenAI-compatible</span>
+        <span class="badge">Anthropic Messages</span>
+        <span class="badge">Gemini &amp; Ollama</span>
+        <span class="badge">Encrypted keys</span>
+      </div>
+    </header>
+
+    <div class="card">
+      <h2 style="margin:0 0 6px; text-align:center;">Download the desktop app</h2>
+      <p class="os-hint" id="os-hint">Detecting your operating system…</p>
+      <div class="download-row">
+        <a id="primary-download" class="btn btn-primary loading" href="https://github.com/tashfeenahmed/freellmapi/releases/latest" target="_blank" rel="noopener">
+          <span id="primary-label">Download</span>
+        </a>
+        <a class="btn btn-secondary" href="https://github.com/tashfeenahmed/freellmapi/releases/latest" target="_blank" rel="noopener">All releases</a>
+      </div>
+
+      <div class="choices">
+        <div class="choice">
+          <h3>Windows</h3>
+          <p>x64 installer (.exe)</p>
+          <a id="dl-win" href="https://github.com/tashfeenahmed/freellmapi/releases/latest" target="_blank" rel="noopener">Download for Windows</a>
+        </div>
+        <div class="choice">
+          <h3>macOS — Apple Silicon</h3>
+          <p>M1 / M2 / M3 / M4 (.dmg)</p>
+          <a id="dl-mac-arm" href="https://github.com/tashfeenahmed/freellmapi/releases/latest" target="_blank" rel="noopener">Download for Apple Silicon</a>
+        </div>
+        <div class="choice">
+          <h3>macOS — Intel</h3>
+          <p>x64 (.dmg)</p>
+          <a id="dl-mac-x64" href="https://github.com/tashfeenahmed/freellmapi/releases/latest" target="_blank" rel="noopener">Download for Intel Mac</a>
+        </div>
+        <div class="choice">
+          <h3>Linux</h3>
+          <p>AppImage / .deb / .rpm</p>
+          <a id="dl-linux" href="https://github.com/tashfeenahmed/freellmapi/releases/latest" target="_blank" rel="noopener">Download for Linux</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2 style="margin:0 0 12px;">What you get</h2>
+      <div class="features">
+        <div class="feat"><h4>One endpoint</h4><p>Point any OpenAI SDK at localhost and route across all your providers.</p></div>
+        <div class="feat"><h4>Smart fallback</h4><p>Automatic retry on 429/5xx with cooldowns and key rotation.</p></div>
+        <div class="feat"><h4>Rate tracking</h4><p>Per-key RPM/RPD/TPM/TPD counters keep you under every free cap.</p></div>
+        <div class="feat"><h4>Encrypted keys</h4><p>AES-256-GCM in SQLite; one unified bearer token for your apps.</p></div>
+        <div class="feat"><h4>Dashboard</h4><p>Manage keys, reorder the chain, playground, analytics, 60 languages.</p></div>
+        <div class="feat"><h4>Self-updating catalog</h4><p>Signed model catalog syncs from freegateway.co automatically.</p></div>
+      </div>
+    </div>
+
+    <footer>
+      Source: <a href="https://github.com/tashfeenahmed/freellmapi" target="_blank" rel="noopener">github.com/tashfeenahmed/freellmapi</a> ·
+      Docs: <a href="https://github.com/tashfeenahmed/freegateway/tree/main/docs" target="_blank" rel="noopener">documentation</a>
+    </footer>
+  </div>
+
+  <script>
+    (function () {
+      // NOTE: this project's own GitHub repo (tashfeenahmed/freegateway) currently
+      // has no published releases, so download buttons would 404. Until you publish
+      // your own release, we point at the upstream project (freellmapi) whose
+      // installers are compatible. Change these two constants to your own repo
+      // once you have published a release.
+      const RELEASES = "https://github.com/tashfeenahmed/freellmapi/releases/latest";
+      const API = "https://api.github.com/repos/tashfeenahmed/freellmapi/releases/latest";
+
+      function detectOS() {
+        const ua = navigator.userAgent || "";
+        const platform = (navigator.userAgentData && navigator.userAgentData.platform) || navigator.platform || "";
+        const s = (ua + " " + platform).toLowerCase();
+        if (s.includes("win")) return "windows";
+        if (s.includes("mac")) return "mac";
+        if (s.includes("linux") || s.includes("x11")) return "linux";
+        return "unknown";
+      }
+
+      function pickAsset(assets, predicate) {
+        const found = assets.find(a => predicate(a.name.toLowerCase()));
+        return found ? found.browser_download_url : null;
+      }
+
+      async function loadAssets() {
+        try {
+          const res = await fetch(API, { headers: { "Accept": "application/vnd.github+json" } });
+          if (!res.ok) throw new Error("bad status " + res.status);
+          const data = await res.json();
+          const assets = data.assets || [];
+          return {
+            win: pickAsset(assets, n => n.endsWith(".exe") && n.includes("setup")),
+            macArm: pickAsset(assets, n => n.endsWith(".dmg") && n.includes("arm64")),
+            macX64: pickAsset(assets, n => n.endsWith(".dmg") && n.includes("x64")),
+            linux: pickAsset(assets, n => n.endsWith(".appimage")) ||
+                   pickAsset(assets, n => n.endsWith(".deb")) ||
+                   pickAsset(assets, n => n.endsWith(".rpm"))
+          };
+        } catch (e) {
+          return { win: null, macArm: null, macX64: null, linux: null };
+        }
+      }
+
+      function setLink(id, url) {
+        const el = document.getElementById(id);
+        if (!el) return;
+        if (url) el.href = url;
+        else el.href = RELEASES;
+      }
+
+      (async function init() {
+        const links = await loadAssets();
+        setLink("dl-win", links.win);
+        setLink("dl-mac-arm", links.macArm);
+        setLink("dl-mac-x64", links.macX64);
+        setLink("dl-linux", links.linux);
+
+        const os = detectOS();
+        const primary = document.getElementById("primary-download");
+        const label = document.getElementById("primary-label");
+        const hint = document.getElementById("os-hint");
+
+        let url = RELEASES;
+        let text = "Download";
+        let nice = "your platform";
+
+        if (os === "windows") { url = links.win || RELEASES; text = "Download for Windows"; nice = "Windows (x64)"; }
+        else if (os === "mac") {
+          // Default to Apple Silicon; Intel users can pick below.
+          url = links.macArm || links.macX64 || RELEASES;
+          text = "Download for macOS";
+          nice = "macOS (Apple Silicon by default)";
+        }
+        else if (os === "linux") { url = links.linux || RELEASES; text = "Download for Linux"; nice = "Linux (x64)"; }
+
+        primary.href = url;
+        primary.classList.remove("loading");
+        label.textContent = text;
+        hint.textContent = "Detected: " + nice + ". Choose another platform below if needed.";
+      })();
+    })();
+  </script>
+</body>
+</html>
