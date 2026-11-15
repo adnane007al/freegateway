@@ -100,7 +100,8 @@ jobs:
       # intermittently ("No module named 'distutils'"). Pin a Python that has
       # it on the macOS hosts instead of taking whatever the image ships.
       - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
-        if: runner.os == 'macOS'
+        id: setup-python
+        if: runner.os == 'macOS' || runner.os == 'Windows'
         with:
           python-version: '3.11'
 
@@ -131,6 +132,9 @@ jobs:
       # lockfile-sync assertion in src/__tests__/version.test.ts ever sees it.
       # ci installs the lockfile as committed, so that test is a real guard here.
       - name: Install desktop dependencies
+        env:
+          PYTHON: ${{ steps.setup-python.outputs.python-path }}
+          npm_config_python: ${{ steps.setup-python.outputs.python-path }}
         run: npm --prefix desktop ci
 
       # The per-platform window chrome (#703's menu-bar fix) lives in a branch
