@@ -8,18 +8,18 @@ any of those are taken seriously. Thanks for reporting them responsibly.
 
 | Version | Supported |
 | ------- | --------- |
-| 0.13.x (current) | Yes — security fixes land here |
-| 0.12.x | Best effort; please upgrade |
-| 0.11.x and older | No |
+| 0.16.x (current) | Yes — security fixes land here |
+| 0.15.x | Best effort; please upgrade |
+| 0.14.x and older | No |
 
 Fixes ship on the latest release line. There are no backported patch releases for
-older lines, so the fastest way to stay patched is to track `0.13.x` (Docker users:
+older lines, so the fastest way to stay patched is to track `0.16.x` (Docker users:
 re-pull `:latest`).
 
 ## Reporting a vulnerability
 
 **Preferred:** GitHub private vulnerability reporting — go to the
-[Security tab](https://github.com/tashfeenahmed/freegateway/security) and click
+[Security tab](https://github.com/adnane007al/freegateway/security) and click
 **Report a vulnerability**. That opens a private thread with the maintainer and
 keeps the details out of public issues.
 

@@ -25,3 +25,8 @@ update-hermes.sh
 
 # Monetization planning — private, never committed
 monetization/
+
+# Per-developer Claude Code settings. CONTRIBUTING.md tells each contributor
+# to put their own hook wiring here, so it is local by definition — the
+# shared hook itself lives in .claude/hooks/ and stays tracked.
+.claude/settings.local.json
