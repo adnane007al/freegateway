@@ -123,10 +123,7 @@ export default function AgentsPage() {
           const traffic = seen.get(analyticsIds[tool.id] ?? tool.id)
           const command = `npx freegateway ${tool.command} --url ${origin}`
           const endpoint = tool.baseUrlSupport === 'root' ? origin : `${origin}/v1`
-          // The copied snippet is pasted into config files — keep it
-          // locale-independent.
-          const realConnection = `BASE_URL=${endpoint}\nAPI_KEY=${keyData?.apiKey ?? '<unified-key>'}`
-          const shownConnection = `BASE_URL=${endpoint}\nAPI_KEY=${shownKey}`
+          // Endpoint and API key are copied separately below.
           // What the tool actually is, in one plain sentence. `t` echoes the
           // key back when neither the active locale nor English defines it, so
           // a catalog entry added ahead of its copy falls back to the wire
@@ -175,15 +172,25 @@ export default function AgentsPage() {
                 <div>
                   <p className="text-xs font-medium">{t('agents.manualLabel')}</p>
                   <p className="mt-0.5 text-xs text-muted-foreground">{t('agents.manualHint')}</p>
-                  <div className="mt-2 flex items-start gap-2 rounded-xl border px-3 py-2">
-                    <code className="min-w-0 flex-1 whitespace-pre-wrap break-all font-mono text-[11px]">
-                      {shownConnection}
-                    </code>
-                    <CopyButton
-                      text={realConnection}
-                      className="size-7 shrink-0"
-                      label={t('common.copy')}
-                    />
+                  <div className="mt-2 flex flex-col gap-2">
+                    <div className="flex items-center gap-2 rounded-xl border px-3 py-2">
+                      <span className="shrink-0 text-[11px] font-medium text-muted-foreground">BASE_URL</span>
+                      <code className="min-w-0 flex-1 truncate font-mono text-[11px]">{endpoint}</code>
+                      <CopyButton
+                        text={endpoint}
+                        className="size-7 shrink-0"
+                        label={t('common.copy')}
+                      />
+                    </div>
+                    <div className="flex items-center gap-2 rounded-xl border px-3 py-2">
+                      <span className="shrink-0 text-[11px] font-medium text-muted-foreground">API_KEY</span>
+                      <code className="min-w-0 flex-1 truncate font-mono text-[11px]">{shownKey}</code>
+                      <CopyButton
+                        text={keyData?.apiKey ?? ''}
+                        className="size-7 shrink-0"
+                        label={t('common.copy')}
+                      />
+                    </div>
                   </div>
                 </div>
                 <a
