@@ -13,21 +13,52 @@ RUN apt-get update \
   && apt-get install -y --no-install-recommends python3 make g++ \
   && rm -rf /var/lib/apt/lists/*
 
-COPY package.json package-lock.json ./
+# pnpm, not npm: pnpm-lock.yaml is the only lockfile in this repository, and
+# the workspaces declare their local dependency as "workspace:*", a protocol
+# npm cannot resolve at all (EUNSUPPORTEDPROTOCOL). The image therefore
+# installs the exact dependency tree CI tests. Installed from the registry
+# rather than through corepack, so the version is pinned explicitly and does
+# not depend on what the Node image happens to bundle.
+RUN npm install --global pnpm@10
+
+COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
 COPY shared/package.json ./shared/
 COPY server/package.json ./server/
 COPY client/package.json ./client/
 COPY cli/package.json ./cli/
 
-RUN npm ci
+# --frozen-lockfile keeps the image on the committed lockfile. The
+# onlyBuiltDependencies allowlist in pnpm-workspace.yaml is what lets pnpm
+# run better-sqlite3's install script and produce the native binding.
+RUN pnpm install --frozen-lockfile
 
 FROM deps AS build
 WORKDIR /app
 
 COPY . .
 
-RUN npm run build
-RUN npm prune --omit=dev
+RUN pnpm run build
+
+# Production dependencies only. This is a separate stage rather than a
+# "pnpm prune" in the build stage: pnpm has to delete and re-create
+# node_modules to drop the dev tree, and that removal aborts with
+# ERR_PNPM_ABORTED_REMOVE_MODULES_DIR_NO_TTY in a build with no TTY.
+FROM ${NODE_IMAGE} AS prod-deps
+WORKDIR /app
+
+RUN apt-get update \
+  && apt-get install -y --no-install-recommends python3 make g++ \
+  && rm -rf /var/lib/apt/lists/*
+
+RUN npm install --global pnpm@10
+
+COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
+COPY shared/package.json ./shared/
+COPY server/package.json ./server/
+COPY client/package.json ./client/
+COPY cli/package.json ./cli/
+
+RUN pnpm install --prod --frozen-lockfile
 
 FROM ${NODE_IMAGE} AS runtime
 WORKDIR /app
@@ -36,13 +67,12 @@ ENV NODE_ENV=production
 ENV PORT=3001
 ENV FREEGATEWAY_INSTALL_METHOD=docker
 
-COPY --from=build --chown=node:node /app/package.json /app/package-lock.json ./
-COPY --from=build --chown=node:node /app/node_modules ./node_modules
-# npm nests some production packages under the workspace instead of hoisting
-# them (undici lives at server/node_modules/undici). Skipping this copy shipped
-# images where the HTTP(S) proxy dispatcher failed to load and every request
-# silently went direct — issue #550.
-COPY --from=build --chown=node:node /app/server/node_modules ./server/node_modules
+COPY --from=prod-deps --chown=node:node /app/node_modules ./node_modules
+# pnpm keeps each workspace's own dependencies in <workspace>/node_modules
+# rather than hoisting them, and the server resolves undici from there.
+# Skipping this copy shipped images where the HTTP(S) proxy dispatcher failed
+# to load and every request silently went direct — issue #550.
+COPY --from=prod-deps --chown=node:node /app/server/node_modules ./server/node_modules
 COPY --from=build --chown=node:node /app/shared ./shared
 COPY --from=build --chown=node:node /app/server/package.json ./server/package.json
 # The dashboard shows which RELEASE this is, and the release version lives in
@@ -73,12 +103,12 @@ ENTRYPOINT ["/usr/local/bin/docker-entrypoint.sh"]
 EXPOSE 3001
 
 # No VOLUME for /app/server/data on purpose. Persistence is the deployment's
-# job — docker-compose.yml maps the named `freegateway-data` volume there, and a
-# plain `docker run` takes -v. Declaring it here instead creates an ANONYMOUS
+# job — docker-compose.yml maps the named "freegateway-data" volume there, and
+# a plain "docker run" takes -v. Declaring it here instead creates an ANONYMOUS
 # volume on every container that doesn't override it: PaaS runtimes that build
 # from the Dockerfile (Railway, Render, Coolify, Dokploy, CapRover) then either
-# refuse the image or silently hand each redeploy a fresh empty volume, and the
-# declaration also shadows a bind mount made at the same path.
+# refuse the image or silently re-download that volume on every redeploy, and
+# the declaration also shadows a bind mount made at the same path.
 
 HEALTHCHECK --interval=30s --timeout=5s --start-period=15s --retries=3 \
   CMD node -e "fetch('http://127.0.0.1:' + (process.env.PORT || 3001) + '/api/ping').then((res) => { if (!res.ok) process.exit(1); }).catch(() => process.exit(1));"
