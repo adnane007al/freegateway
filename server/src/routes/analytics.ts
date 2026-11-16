@@ -6,7 +6,7 @@ import { providerIdFor, providerDisplayName } from '../lib/provider-identity.js'
 import { normalizeBaseUrl } from '../lib/endpoint-scope.js';
 import { searchAnalytics, type SearchAnalyticsRange } from '../services/search.js';
 
-export const analyticsRouter = Router();
+export const analyticsRouter: Router = Router();
 
 // The endpoint identity of a request, in SQL: the serving key's base_url, ''
 // when the key is gone or carries none (every catalog key). Custom endpoints

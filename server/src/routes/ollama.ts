@@ -12,7 +12,7 @@ import { runInboundChat, type InboundChatResult, type InboundChatWire } from '..
 import { runEmbeddings, embeddingsRetryAfterSec, EmbeddingsError } from '../services/embeddings.js';
 import { validateSession } from '../services/auth.js';
 
-export const ollamaRouter = Router();
+export const ollamaRouter: Router = Router();
 
 export type OllamaEmulationMode = 'off' | 'open-loopback' | 'key-required';
 

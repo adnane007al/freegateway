@@ -14,7 +14,7 @@ import {
   type EmbeddingModelRow,
 } from '../services/embeddings.js';
 
-export const embeddingsRouter = Router();
+export const embeddingsRouter: Router = Router();
 
 // Families with their provider chains, for the dashboard Embeddings tab.
 embeddingsRouter.get('/', (_req: Request, res: Response) => {

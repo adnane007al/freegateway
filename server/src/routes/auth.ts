@@ -18,7 +18,7 @@ import {
 import { setupCodeMatches, clearSetupCode } from '../lib/setup-code.js';
 import { generateResetCode, resetCodeMatches, clearResetCode } from '../lib/reset-code.js';
 
-export const authRouter = Router();
+export const authRouter: Router = Router();
 
 const failedPasswordAttempts = new Map<number, number>();
 

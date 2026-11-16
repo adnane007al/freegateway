@@ -5,7 +5,7 @@ import { extractApiToken } from './proxy.js';
 import { resolveAuth } from '../lib/system-prompt.js';
 import { runModerations, ModerationError } from '../services/moderation.js';
 
-export const moderationRouter = Router();
+export const moderationRouter: Router = Router();
 
 function requireInferenceAuth(req: Request, res: Response): boolean {
   const token = extractApiToken(req);

@@ -7,7 +7,7 @@ import { compressRequest } from '../services/compression/pipeline.js';
 import { getCompressionConfig } from '../services/compression/config.js';
 import { getCompressionStats } from '../services/compression/stats.js';
 
-export const compressionRouter = Router();
+export const compressionRouter: Router = Router();
 
 const previewMessageSchema = z.object({
   role: z.enum(['system', 'user', 'assistant', 'tool']),

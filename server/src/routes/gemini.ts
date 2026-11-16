@@ -19,7 +19,7 @@ import {
 } from '../lib/gemini-wire.js';
 import { resolveGeminiModel } from '../services/gemini-map.js';
 
-export const geminiRouter = Router();
+export const geminiRouter: Router = Router();
 
 const partSchema = z.object({}).passthrough();
 const contentSchema = z.object({

@@ -43,7 +43,7 @@ import { compressRequest, formatCompressionHeader } from '../services/compressio
 import { applyDecisionRouting, routingStrategyHeader } from '../services/routing-decision.js';
 import { startStreamKeepalive, streamKeepaliveMs } from '../lib/stream-keepalive.js';
 
-export const proxyRouter = Router();
+export const proxyRouter: Router = Router();
 
 // Virtual "auto" model. Clients like Hermes require a non-empty `model` field
 // on every request, but freegateway's whole point is to pick the model itself.

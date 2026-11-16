@@ -11,7 +11,7 @@ import {
   CACHE_ENABLED_SETTING,
 } from '../services/cache.js';
 
-export const cacheRouter = Router();
+export const cacheRouter: Router = Router();
 
 // Cache status + savings for the dashboard. "saved" tokens are provider tokens
 // that hits avoided spending, i.e. the free-tier quota the cache gave back.

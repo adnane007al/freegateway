@@ -52,7 +52,7 @@ import {
 import { applyDecisionRouting, routingStrategyHeader } from '../services/routing-decision.js';
 import { resolveListedClaudeAlias } from '../services/anthropic-map.js';
 
-export const responsesRouter = Router();
+export const responsesRouter: Router = Router();
 
 const AUTO_MODEL_ID = 'auto';
 

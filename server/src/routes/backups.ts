@@ -15,7 +15,7 @@ import {
   type BackupSchedule,
 } from '../services/backups.js';
 
-export const backupsRouter = Router();
+export const backupsRouter: Router = Router();
 
 const createSchema = z.object({
   tables: z.array(z.string().trim().min(1).max(200)).max(500).optional(),

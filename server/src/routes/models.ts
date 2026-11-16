@@ -26,7 +26,7 @@ import { recordRequest, recordTokens } from '../services/ratelimit.js';
 import { recordMonthlyUsage } from '../services/key-budget.js';
 import { contentToString } from '../lib/content.js';
 
-export const modelsRouter = Router();
+export const modelsRouter: Router = Router();
 
 // Throttle map for model test endpoint: modelDbId -> lastTestTimestamp
 const modelTestCooldowns = new Map<number, number>();

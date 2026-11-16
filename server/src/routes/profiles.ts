@@ -10,7 +10,7 @@ import { z } from 'zod';
 import { getDb } from '../db/index.js';
 import { monthlyBudgetScore } from '../lib/budget.js';
 
-export const profilesRouter = Router();
+export const profilesRouter: Router = Router();
 
 const RESERVED_PROFILE_NAMES = [
   'auto', 'smart', 'fast', 'cheap', 'budget',

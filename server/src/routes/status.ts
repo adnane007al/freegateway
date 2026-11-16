@@ -20,8 +20,8 @@ import { openapiSpec } from '../docs/openapi.js';
 // #433). `/livez` and `/readyz` are unauthenticated so a load balancer can probe
 // them; `/v1/providers` sits behind the same unified API key as the rest of /v1.
 
-export const statusRouter = Router();
-export const providersRouter = Router();
+export const statusRouter: Router = Router();
+export const providersRouter: Router = Router();
 
 // Cheap "is the SQLite connection answering" probe. getDb() throws before initDb
 // has run, and prepare/get throws if the handle is closed — either way the

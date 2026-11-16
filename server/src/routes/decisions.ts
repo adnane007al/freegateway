@@ -6,7 +6,7 @@ import { listDecisionModels, runDecision, setDecisionModelEnabled, DecisionError
 // Dashboard: the Models → Decision page. Models come from the catalog's
 // decisionModels registry; this lists them with key and usage counts, lets the
 // operator switch one off, and runs a test decision from the page.
-export const decisionsRouter = Router();
+export const decisionsRouter: Router = Router();
 
 decisionsRouter.get('/models', (_req: Request, res: Response) => {
   res.json(listDecisionModels());

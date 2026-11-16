@@ -9,7 +9,7 @@ import { DOCS_HTML } from '../docs/docs-page.js';
 // Both are static and expose no secrets, so they are intentionally not gated by
 // the unified API key. Mounted before the proxy rate limiter in app.ts so the
 // docs stay available and never consume a caller's request budget.
-export const docsRouter = Router();
+export const docsRouter: Router = Router();
 
 docsRouter.get('/openapi.json', (_req: Request, res: Response) => {
   // Long-cacheable: the spec only changes when the server binary does.

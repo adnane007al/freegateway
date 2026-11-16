@@ -48,7 +48,7 @@ import { applyDecisionRouting, routingStrategyHeader } from '../services/routing
 // key, and every `claude-*` request transparently routes to whatever free
 // model the chain picks. Auth accepts Anthropic's native `x-api-key` header
 // (already handled by extractApiToken) as well as a bearer token.
-export const anthropicRouter = Router();
+export const anthropicRouter: Router = Router();
 
 const AUTO_MODEL_ID = 'auto';
 

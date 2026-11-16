@@ -34,7 +34,7 @@ import { z } from 'zod';
 // Auth mirrors /v1: the unified API key as a Bearer token (or x-api-key).
 // ─────────────────────────────────────────────────────────────────────────
 
-export const mcpRouter = Router();
+export const mcpRouter: Router = Router();
 
 // Always negotiated to 2025-06-18: this transport rejects JSON-RPC batches,
 // which the 2025-03-26 and 2024-11-05 revisions still allowed — echoing an

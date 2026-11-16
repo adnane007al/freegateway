@@ -23,7 +23,7 @@ import {
 // filtered out still advances the cursor instead of re-scanning the same tail
 // forever.
 
-export const logsRouter = Router();
+export const logsRouter: Router = Router();
 
 const KNOWN_LEVELS = new Set<string>(LOG_LEVELS);
 

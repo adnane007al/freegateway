@@ -27,7 +27,7 @@ import type { Platform, QuotaMetric } from '@freegateway/shared/types.js';
  *     provider allowance) and are only marked, never dropped.
  */
 
-export const freeTierRouter = Router();
+export const freeTierRouter: Router = Router();
 
 interface PoolAgg {
   poolKey: string;

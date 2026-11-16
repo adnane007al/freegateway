@@ -14,7 +14,7 @@ import { getDb } from '../db/index.js';
 // like the live one. Validation is therefore shape-checking, not
 // normalisation: unknown keys are stripped, everything the page draws survives.
 
-export const conversationsRouter = Router();
+export const conversationsRouter: Router = Router();
 
 const MAX_TITLE_LEN = 200;
 // A conversation is prose plus, occasionally, inlined image data URIs. 2 MB of

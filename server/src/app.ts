@@ -97,7 +97,7 @@ function isTrustworthyOrigin(req: express.Request): boolean {
   return isHttpsRequest(req) || LOOPBACK_HOST_RE.test(req.hostname ?? '');
 }
 
-export function createApp(config?: Config) {
+export function createApp(config?: Config): express.Application {
   const cfg = config ?? loadConfig();
   const app = express();
   // TRUST_PROXY (#1024): opt-in trust of X-Forwarded-* from a reverse proxy.

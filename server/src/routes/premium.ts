@@ -13,7 +13,7 @@ import {
   validateLicenseKey,
 } from '../services/catalog-sync.js';
 
-export const premiumRouter = Router();
+export const premiumRouter: Router = Router();
 
 function maskKey(key: string): string {
   if (key.length <= 10) return key;

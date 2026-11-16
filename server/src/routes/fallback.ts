@@ -20,7 +20,7 @@ import { parseModelScope, scopeAllows } from '../lib/model-scope.js';
 import { getQuotaOutlook } from '../services/quota-outlook.js';
 import { getDecisionRoutingStatus, setDecisionRoutingSettings } from '../services/routing-decision.js';
 
-export const fallbackRouter = Router();
+export const fallbackRouter: Router = Router();
 
 // Dashboard-session authenticated by app.ts. Polling only reads saved quota
 // observations and request history, never provider endpoints or key material.

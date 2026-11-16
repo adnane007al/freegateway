@@ -36,7 +36,7 @@ import type { Platform } from '@freegateway/shared/types.js';
 import { parseModelScope } from '../lib/model-scope.js';
 import { KEY_PROXY_URL_ERROR, KEY_PROXY_URL_MAX, decryptProxyUrl, encryptProxyUrl, isValidKeyProxyUrl, maskProxyUrl } from '../lib/key-proxy.js';
 
-export const keysRouter = Router();
+export const keysRouter: Router = Router();
 
 // Providers whose free signup/key creation is unavailable keep their adapter
 // and catalog models so existing keys continue working. The setup

@@ -34,7 +34,7 @@ import {
   unifiedMaxTokensCap,
 } from '../lib/sampling-params.js';
 
-export const settingsRouter = Router();
+export const settingsRouter: Router = Router();
 
 // Which RELEASE this install is, for the dashboard's version row (#703).
 // Deliberately NOT /api/version: the Ollama emulation already owns that path

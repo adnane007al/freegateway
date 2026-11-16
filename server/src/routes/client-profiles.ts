@@ -11,7 +11,7 @@ import { mintClientProfileKey, hashClientProfileKey } from '../lib/system-prompt
 // only ever shows the masked form (rendered from the encrypted copy, since
 // the auth path stores nothing but a hash).
 
-export const clientProfilesRouter = Router();
+export const clientProfilesRouter: Router = Router();
 
 const MAX_NAME_LEN = 100;
 // Generous ceiling — a system prompt is configuration, not a document.

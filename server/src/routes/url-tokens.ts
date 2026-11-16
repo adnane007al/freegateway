@@ -6,7 +6,7 @@ import { proxyRouter } from './proxy.js';
 import { responsesRouter } from './responses.js';
 import { validateUrlToken } from '../services/url-tokens.js';
 
-export const urlTokenRouter = Router({ mergeParams: true });
+export const urlTokenRouter: Router = Router({ mergeParams: true });
 
 urlTokenRouter.use((req: Request, res: Response, next: NextFunction) => {
   const token = String(req.params.token ?? '');

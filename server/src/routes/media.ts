@@ -8,7 +8,7 @@ import { resolveCustomEndpointKey } from '../services/custom-endpoint.js';
 import { registerCustomMediaModel } from '../services/custom-media-register.js';
 import { listAllMediaModels } from '../services/media.js';
 
-export const mediaRouter = Router();
+export const mediaRouter: Router = Router();
 
 // Generative-media models for the dashboard Image/Video/Audio tabs.
 // Mirrors the embeddings tab: a flat list with an enable toggle per row. keyCount

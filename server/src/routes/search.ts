@@ -7,7 +7,7 @@ import { getSyncState } from '../services/catalog-sync.js';
 // Dashboard: the Models → Search page (#1174). Engines come from the catalog's
 // searchEngines registry (plus custom relays); this lists them with key and
 // usage counts and lets the operator switch one off or change the order.
-export const searchRouter = Router();
+export const searchRouter: Router = Router();
 
 // Dashboard diagnostics only: local catalog/key/cooldown state. No provider
 // probes, license changes, catalog enrollment or bypass of the 30-day gate.

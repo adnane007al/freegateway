@@ -8,7 +8,7 @@ import { hasProvider, resolveProvider } from '../providers/index.js';
 import { getQuotaStateForKeys } from '../services/provider-quota.js';
 import type { Platform } from '@freegateway/shared/types.js';
 
-export const healthRouter = Router();
+export const healthRouter: Router = Router();
 
 // Get health status for all platforms
 healthRouter.get('/', (_req: Request, res: Response) => {
