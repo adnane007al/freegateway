@@ -4,3 +4,16 @@ packages:
   - client
   - cli
 
+# pnpm 10 blocks dependency lifecycle scripts unless the package is listed
+# here. better-sqlite3 compiles (or downloads) its native binding in its
+# install script, so without this the server cannot open a database at all —
+# the migration round-trip test dies on `new Database(':memory:')` with
+# "Could not locate the bindings file".
+#
+# These are bare package names on purpose: a name@version pin (as the npm
+# `allowScripts` map in package.json used) stops matching the moment the
+# dependency is bumped, which silently skips the build again.
+onlyBuiltDependencies:
+  - better-sqlite3
+  - esbuild
+  - msw
