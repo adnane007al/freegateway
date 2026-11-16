@@ -1,6 +1,6 @@
 # freegateway
 
-Point your coding agent at a [FreeGateway](https://github.com/tashfeenahmed/freegateway)
+Point your coding agent at a [FreeGateway](https://github.com/adnane007al/freegateway)
 gateway in one command. The generators read the models your server is actually
 serving and write the config file each tool expects.
 
@@ -107,11 +107,11 @@ them into the child process environment for that run only.
 ## Requirements
 
 Node.js >= 20.18. A running FreeGateway gateway
-([install guide](https://github.com/tashfeenahmed/freegateway/blob/main/docs/en/install/01-install.md)).
+([install guide](https://github.com/adnane007al/freegateway/blob/main/docs/en/install/01-install.md)).
 
 ## Links
 
-- [Clients & coding agents guide](https://github.com/tashfeenahmed/freegateway/blob/main/docs/en/clients/01-agent-clients.md)
-- [Issue tracker](https://github.com/tashfeenahmed/freegateway/issues)
+- [Clients & coding agents guide](https://github.com/adnane007al/freegateway/blob/main/docs/en/clients/01-agent-clients.md)
+- [Issue tracker](https://github.com/adnane007al/freegateway/issues)
 
 MIT © Tashfeen Ahmed

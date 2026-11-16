@@ -77,8 +77,11 @@ aggregators, Chinese domestic clouds, and a **custom** provider for any
 OpenAI-compatible endpoint (llama.cpp, LM Studio, vLLM, a local Ollama, or a remote
 gateway).
 
-The full live catalog — every model, its context window and its free-token budget —
-lives at [freegateway.co/models](https://freegateway.co/models.html).
+The full catalog — every bundled model, its context window and its free-token budget —
+is listed in [docs/en/providers/01-supported-platforms.md](docs/en/providers/01-supported-platforms.md).
+A fresh install seeds **108 models across 15 providers** from the bundled migrations; the
+router keeps them current from your own traffic and from the provider's own `/models`
+endpoint.
 
 ## Quick start
 
@@ -97,22 +100,32 @@ The whole router + dashboard runs locally from your tray.
 ### Docker
 
 ```bash
-curl -fsSL https://freegateway.co/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/adnane007al/freegateway/main/docs/install.sh | bash
 ```
 
-That sets up `~/freegateway`, generates an encryption key, pulls the image and starts the
-container. Re-running it is safe — your `.env` and encryption key are preserved.
+That clones the repository into `~/freegateway`, generates an encryption key, and starts
+the container bound to `127.0.0.1:3001`. Re-running it is safe — your `.env` and
+encryption key are preserved, and the database lives in the `freegateway-data` volume.
+
+Prefer to read before you pipe to bash? [The script is here](https://raw.githubusercontent.com/adnane007al/freegateway/main/docs/install.sh).
 
 Open <http://localhost:3001>, add your provider keys, and grab the unified API key from
 the **Keys** page header.
 
+> The published image for this fork is `ghcr.io/adnane007al/freegateway:latest`. The
+> installer builds from source instead, which is what you want while the fork is ahead
+> of its own releases.
+
 ### From source
+
+This repository uses **pnpm** (the lockfile is `pnpm-lock.yaml`). Install it once
+with `corepack enable` — it ships with Node 22, the version `.nvmrc` pins.
 
 ```bash
 git clone https://github.com/adnane007al/freegateway.git
 cd freegateway
-npm install
-npm run dev
+pnpm install
+pnpm dev
 ```
 
 - API server → <http://localhost:3001>
@@ -189,22 +202,22 @@ Vitest · pnpm workspaces · Docker · Electron.
 ## Development
 
 ```bash
-npm install          # install workspaces
-npm run dev          # server on :3001 + dashboard on :5173
+pnpm install         # install workspaces
+pnpm dev             # server on :3001 + dashboard on :5173
 npm test             # bootstrap, hooks, server, cli and client suites
-npm run lint         # server + cli
-npm run build        # build server, cli and client
-npm run desktop:dev  # build the client, then run the tray app
+pnpm run lint        # server + cli
+pnpm run build       # build server, cli and client
+pnpm run desktop:dev # build the client, then run the tray app
 ```
 
 Database migrations:
 
 ```bash
-npm run db:migration:status
-npm run db:migration:create -- --name what_changed
-npm run db:migration:up
-npm run db:migration:down
-npm run db:migration:fresh
+pnpm run db:migration:status
+pnpm run db:migration:create -- --name what_changed
+pnpm run db:migration:up
+pnpm run db:migration:down
+pnpm run db:migration:fresh
 ```
 
 ## Releases
@@ -250,6 +263,11 @@ PR expectations and the policy on AI/LLM-assisted contributions. A good first PR
 
 FreeGateway is MIT licensed — see [LICENSE](./LICENSE).
 
-This repository is a maintained fork of the original
-[FreeGateway](https://github.com/tashfeenahmed/freegateway) by Tashfeen Ahmed, which is
-MIT licensed and remains the upstream project this work builds on.
+This repository is a maintained fork of the original FreeGateway by Tashfeen Ahmed, which
+was MIT licensed. The upstream repository is no longer publicly reachable, so this fork
+carries the work forward on its own. The original copyright notice is preserved in
+`LICENSE`.
+
+The dashboard's visual design in this fork (neo-brutalist theme, left sidebar, keyboard
+shortcuts) is the fork's own work; the routing engine, provider adapters, migrations and
+API surface come from upstream.

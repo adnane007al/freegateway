@@ -28,7 +28,9 @@ function statusPayload() {
     license: getCachedLicenseStatus(),
     catalog: getSyncState(),
     // Where "Go Premium" / "recover key" links point. Overridable for forks.
-    siteUrl: (process.env.PREMIUM_SITE_URL ?? 'https://freegateway.co').replace(/\/$/, ''),
+    // The hosted premium service this defaulted to is no longer running, so
+    // the default is the repository itself rather than a dead domain.
+    siteUrl: (process.env.PREMIUM_SITE_URL ?? 'https://github.com/adnane007al/freegateway').replace(/\/$/, ''),
   };
 }
 

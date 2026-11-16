@@ -3,11 +3,11 @@
   "version": "0.16.22",
   "description": "FreeGateway menu-bar app — local OpenAI-compatible LLM router",
   "author": {
-    "name": "tashfeenahmed",
+    "name": "adnane007al",
     "email": "tashfene@gmail.com",
-    "url": "https://github.com/tashfeenahmed"
+    "url": "https://github.com/adnane007al"
   },
-  "homepage": "https://freegateway.co/",
+  "homepage": "https://github.com/adnane007al/freegateway/",
   "private": true,
   "type": "module",
   "main": "build/main.mjs",

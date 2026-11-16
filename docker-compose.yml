@@ -1,6 +1,6 @@
 services:
   freegateway:
-    image: ghcr.io/tashfeenahmed/freegateway:latest
+    image: ghcr.io/adnane007al/freegateway:latest
     build:
       context: .
       dockerfile: Dockerfile

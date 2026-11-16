@@ -103,4 +103,4 @@ docker run --rm -v freegateway-data:/data -v "$PWD":/backup alpine \
 }
 ```
 
-目录方面：安装会从经过签名的目录订阅源保持模型名册最新（完整目录见 freegateway.co/models），所以升级之外无需手工维护名册。
+目录方面：当目录服务可达时，安装会从经过签名的目录订阅源保持模型名册最新；否则以捆绑目录加上你自己的流量为准（完整目录见 [01-supported-platforms.md](../providers/01-supported-platforms.md)），所以升级之外无需手工维护名册。

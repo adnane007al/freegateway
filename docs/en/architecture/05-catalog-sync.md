@@ -6,7 +6,14 @@
 
 ## 1. Overview
 
-The catalog sync keeps the local model catalog in step with the published catalog at `freegateway.co`. It runs **twice daily** (and on demand), fetches a **signed catalog**, verifies it against a **pinned Ed25519 public key**, and applies it **transactionally** to the local SQLite database.
+The catalog sync keeps the local model catalog in step with a published catalog. It runs **twice daily** (and on demand), fetches a **signed catalog**, verifies it against a **pinned Ed25519 public key**, and applies it **transactionally** to the local SQLite database.
+
+> **In this fork the hosted catalog service is not running.** The sync logs the
+> failure and the bundled migrations stay the floor, so an install works with the
+> **108 models across 15 providers** it ships with. The router keeps the rest of
+> its catalog current from your own traffic and from each provider's own
+> `/models` endpoint. Set `CATALOG_BASE_URL` (and `CATALOG_PUBKEY`) to point at a
+> catalog service of your own to re-enable live catalog updates.
 
 ### Two Tiers
 

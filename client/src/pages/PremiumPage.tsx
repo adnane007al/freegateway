@@ -209,7 +209,7 @@ export default function PremiumPage() {
               )}
               <p className="text-xs text-muted-foreground">
                 {t('premium.keyHint')}{' '}
-                <a className="underline hover:text-foreground" href={`${siteUrl}/manage.html`} target="_blank" rel="noopener noreferrer">
+                <a className="underline hover:text-foreground" href={siteUrl} target="_blank" rel="noopener noreferrer">
                   {t('premium.recoverKey')}
                 </a>
                 .
@@ -232,7 +232,7 @@ export default function PremiumPage() {
                 </div>
               </div>
               <a
-                href={`${siteUrl}/#pricing`}
+                href={siteUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="shrink-0"

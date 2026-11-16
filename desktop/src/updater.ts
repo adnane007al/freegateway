@@ -21,7 +21,7 @@ export type { UpdateState };
 
 const { autoUpdater } = electronUpdater;
 
-const RELEASES_URL = 'https://github.com/tashfeenahmed/freegateway/releases/latest';
+const RELEASES_URL = 'https://github.com/adnane007al/freegateway/releases/latest';
 const BACKGROUND_INTERVAL_MS = 6 * 60 * 60 * 1000;
 const FIRST_BACKGROUND_CHECK_MS = 60 * 1000;
 

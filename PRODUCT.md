@@ -77,7 +77,7 @@ Constraints that must be respected in any marketing surface:
   late in the day as top models hit daily caps, resetting at UTC midnight.
 - Local-first and single-user by design; not exposed to the internet by default.
 - Provider keys are encrypted (AES-256-GCM) in SQLite and decrypted per request.
-- The upstream project (github.com/tashfeenahmed/freegateway) is MIT licensed and is
+- The upstream project (github.com/adnane007al/freegateway) is MIT licensed and is
   the code this product is built on; attribution must remain visible.
 
 ## Brand Commitments

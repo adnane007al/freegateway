@@ -1144,7 +1144,7 @@ const metadata = [
   ['reasonix', 'Reasonix', 'code', 'file', 'OpenAI Chat', '/v1', 'setup-reasonix', 'https://github.com/esengine/DeepSeek-Reasonix/blob/studio/docs/CLI.md#configure-providers', reasonix],
   ['zcode', 'ZCode', 'code', 'file', 'OpenAI Chat', '/v1', 'setup-zcode', 'https://zcode.z.ai/en/docs/configuration', zcode],
   ['cursor', 'Cursor', 'code', 'guide', 'OpenAI Chat', '/v1', 'setup-cursor', 'https://docs.cursor.com', cursor],
-  ['generic', 'Generic OpenAI client', 'agent', 'guide', 'OpenAI Chat', '/v1', 'setup-generic', 'https://github.com/tashfeenahmed/freegateway', generic],
+  ['generic', 'Generic OpenAI client', 'agent', 'guide', 'OpenAI Chat', '/v1', 'setup-generic', 'https://github.com/adnane007al/freegateway', generic],
 ] as const;
 
 export const tools: ToolDefinition[] = metadata.map(([

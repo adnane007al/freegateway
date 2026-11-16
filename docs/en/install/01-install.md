@@ -20,18 +20,18 @@ Everything about getting FreeGateway running: the one-liner, Docker Compose, loc
 Docker required — sets up `~/freegateway`, generates an encryption key, pulls the image, and starts the container:
 
 ```bash
-curl -fsSL https://freegateway.co/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/adnane007al/freegateway/main/docs/install.sh | bash
 ```
 
 Prefer to read before you pipe to bash? [The script is here](https://freegateway.co/install.sh). Re-running it is safe: your `.env` (and encryption key) is preserved and the container updates to `:latest`. Override the defaults with `FREEGATEWAY_DIR`, `PORT`, or `HOST_BIND` env vars.
 
-On Windows, the easiest path is the desktop **[`.exe` installer from Releases](https://github.com/tashfeenahmed/freegateway/releases/latest)** ([below](#desktop-app)); the Docker steps work in WSL or any bash shell.
+On Windows, the easiest path is the desktop **[`.exe` installer from Releases](https://github.com/adnane007al/freegateway/releases/latest)** ([below](#desktop-app)); the Docker steps work in WSL or any bash shell.
 
 On Android, see the experimental [Termux installation guide](02-android-termux.md). It uses Node's built-in SQLite driver and does not require the Android NDK.
 
 Open http://localhost:3001, add your provider keys on the **Keys** page, reorder the **Fallback Chain** to taste, and grab your unified API key from the **Keys** page header. That unified key is what you point your OpenAI SDK at.
 
-Your install keeps itself updated from the signed catalog feed. The current full catalog is listed at [freegateway.co/models](https://freegateway.co/models.html).
+An install ships with a bundled catalog of **108 models across 15 providers** and keeps it current from your own traffic and from each provider's own `/models` endpoint. The bundled catalog is documented in [01-supported-platforms.md](../providers/01-supported-platforms.md).
 
 ## Docker Compose
 
@@ -90,10 +90,10 @@ docker compose up -d
 ```bash
 git clone https://github.com/tashfeenahmed/freegateway.git
 cd freegateway
-npm install
+pnpm install
 ENCRYPTION_KEY="$(node -e 'console.log(require("crypto").randomBytes(32).toString("hex"))')"
 printf "ENCRYPTION_KEY=%s\nPORT=3001\n" "$ENCRYPTION_KEY" > .env
-npm run dev
+pnpm dev
 ```
 
 *On Windows (PowerShell):*
@@ -172,7 +172,7 @@ instead of duplicated.
 ```json
 {
   "admin": { "email": "ops@example.com", "password": "change-me-min-8-chars" },
-  "license": "premium license key from freegateway.co",
+  "license": "premium license key",
   "keys": [
     { "platform": "groq", "key": "gsk_...", "label": "main" },
     { "platform": "google", "key": "AIza...", "enabled": true }
@@ -207,7 +207,7 @@ Two optional top-level fields cover first-run provisioning:
   listener starts, an `admin` entry also closes the unauthenticated
   first-run setup window entirely: no setup code is minted and
   `POST /api/auth/setup` answers 409 from the first request on.
-- **`license`** is a Premium key from freegateway.co. It is validated against
+- **`license`** is a Premium key from the hosted license service. It is validated against
   the license service before being stored — the same contract as the
   dashboard's Premium page — then a live-tier catalog sync starts right away.
   Activation runs in the background so an unreachable license service never
@@ -235,7 +235,7 @@ than one endpoint is rejected rather than applied to an arbitrary one:
 FreeGateway publishes a single production image that contains the Express server and the built React dashboard:
 
 ```bash
-docker pull ghcr.io/tashfeenahmed/freegateway:latest   # or pin a release, e.g. :v1.2.3
+docker pull ghcr.io/adnane007al/freegateway:latest   # or pin a release, e.g. :v1.2.3
 ```
 
 The image is multi-arch (`linux/amd64` + `linux/arm64`, so it runs on a Raspberry Pi). Published tags: `latest` (the newest release), `main` (the default branch), `v*.*.*` (git release tags), and `sha-<commit>`.
@@ -410,7 +410,7 @@ the top.
 
 ```bash
 docker compose down -v            # -v also drops the freegateway-data volume
-docker image rm ghcr.io/tashfeenahmed/freegateway:latest
+docker image rm ghcr.io/adnane007al/freegateway:latest
 rm -rf ~/freegateway               # the one-liner's directory: .env + compose file
 ```
 

@@ -19,18 +19,18 @@
 需要 Docker。它会建好 `~/freegateway`、生成加密密钥、拉取镜像并启动容器：
 
 ```bash
-curl -fsSL https://freegateway.co/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/adnane007al/freegateway/main/docs/install.sh | bash
 ```
 
 不放心直接管道给 bash？[脚本在这里](https://freegateway.co/install.sh)。重复执行是安全的：你的 `.env`（以及加密密钥）会被保留，容器会更新到 `:latest`。可以用 `FREEGATEWAY_DIR`、`PORT` 或 `HOST_BIND` 环境变量覆盖默认值。
 
-在 Windows 上，最省事的方式是桌面版 **[Releases 里的 `.exe` 安装包](https://github.com/tashfeenahmed/freegateway/releases/latest)**（见[下文](#桌面应用)）；上面的 Docker 步骤在 WSL 或任意 bash shell 里同样可用。
+在 Windows 上，最省事的方式是桌面版 **[Releases 里的 `.exe` 安装包](https://github.com/adnane007al/freegateway/releases/latest)**（见[下文](#桌面应用)）；上面的 Docker 步骤在 WSL 或任意 bash shell 里同样可用。
 
 在 Android 上，参见实验性的 [Termux 安装指南](02-android-termux.md)。它使用 Node 内置的 SQLite 驱动，不需要 Android NDK。
 
 打开 http://localhost:3001 ，在 **密钥** 页添加你的提供方密钥，按喜好调整 **回退链** 的顺序，然后在 **密钥** 页顶部拿到你的统一 API 密钥。这个统一密钥就是你的 OpenAI SDK 要指向的东西。
 
-你的部署会自行从签名的目录源保持更新。当前的完整目录列在 [freegateway.co/models](https://freegateway.co/models.html)。
+开箱即用的安装自带一份捆绑目录：**15 个提供商、108 个模型**，并靠你自己的流量以及各提供商自己的 `/models` 端点保持更新。捆绑目录见 [01-supported-platforms.md](../providers/01-supported-platforms.md)。
 
 ## Docker Compose
 
@@ -89,7 +89,7 @@ docker compose up -d
 ```bash
 git clone https://github.com/tashfeenahmed/freegateway.git
 cd freegateway
-npm install
+pnpm install
 ENCRYPTION_KEY="$(node -e 'console.log(require("crypto").randomBytes(32).toString("hex"))')"
 printf "ENCRYPTION_KEY=%s\nPORT=3001\n" "$ENCRYPTION_KEY" > .env
 npm run dev
@@ -188,7 +188,7 @@ node server/dist/index.js     # 服务和仪表盘都在 :3001 上提供
 FreeGateway 发布一个生产镜像，里面包含 Express 服务和构建好的 React 仪表盘：
 
 ```bash
-docker pull ghcr.io/tashfeenahmed/freegateway:latest   # 也可以固定到某个版本，例如 :v1.2.3
+docker pull ghcr.io/adnane007al/freegateway:latest   # 也可以固定到某个版本，例如 :v1.2.3
 ```
 
 镜像是多架构的（`linux/amd64` 和 `linux/arm64`，所以树莓派上也能跑）。发布的标签有：`latest`（最新发布版本）、`main`（默认分支）、`v*.*.*`（git 发布标签）和 `sha-<commit>`。

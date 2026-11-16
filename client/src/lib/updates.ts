@@ -5,4 +5,4 @@ export function openUpdates(): void {
   window.dispatchEvent(new Event(OPEN_UPDATES_EVENT))
 }
 
-export const RELEASES_URL = 'https://github.com/tashfeenahmed/freegateway/releases/latest'
+export const RELEASES_URL = 'https://github.com/adnane007al/freegateway/releases/latest'

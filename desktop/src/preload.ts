@@ -42,7 +42,7 @@ contextBridge.exposeInMainWorld(
 
 // The in-app updater (the Settings update dialog and the update reminder). Like the session bridge above, deliberately
 // narrow: it can only check for, download and install the release published at
-// tashfeenahmed/freegateway — the feed URL and signature checks live in the main
+// adnane007al/freegateway — the feed URL and signature checks live in the main
 // process and nothing here can point them anywhere else.
 contextBridge.exposeInMainWorld('__FREEGATEWAY_UPDATER__', {
   state: () => ipcRenderer.invoke('freegateway:update-state'),

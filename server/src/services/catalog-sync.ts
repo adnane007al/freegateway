@@ -39,6 +39,11 @@ const MEDIA_MODALITIES = new Set(['image', 'audio']);
  * app version added via migrations.
  */
 
+// The hosted catalog service. It is no longer running, so the default
+// endpoint is unreachable on a fresh install: the fetch fails, the failure is
+// logged, and the bundled migrations stay the floor. Point CATALOG_BASE_URL
+// at a catalog service of your own (with CATALOG_PUBKEY to match) to re-enable
+// live catalog updates.
 const DEFAULT_BASE_URL = 'https://api.freegateway.co';
 
 // The Ed25519 public key the production catalog is signed with. The private
@@ -78,7 +83,7 @@ let fallbackFetch: FetchLike | null = null;
  * Register a second network stack for calls to the catalog service. The
  * desktop app passes Electron's net.fetch (Chromium: the OS certificate
  * verifier and system proxy, same as a browser). On some Windows PCs Node's
- * fetch could not complete the TLS handshake to api.freegateway.co, so license
+ * fetch could not complete the TLS handshake to the catalog host, so license
  * activation always showed "HTTP 502" while the same URL opened fine in a
  * browser. Server and Docker installs never set this.
  */

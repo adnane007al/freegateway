@@ -5,11 +5,11 @@ Contributors are very welcome. This project is a local-first aggregator for free
 ## Development loop
 
 ```bash
-npm install
-npm run dev             # server on :3001, dashboard on :5173, both with HMR
-npm run db:migration:up # apply all the migrations to your local database
+ppnpm install
+pnpm dev              # server on :3001, dashboard on :5173, both with HMR
+pnpm run db:migration:up # apply all the migrations to your local database
 npm test                # server vitest; also runs client tests if present
-npm run build           # compile server and dashboard
+ppnpm run build          # compile server and dashboard
 ```
 
 For a repeatable local setup, run the bootstrap script for your shell. It only
@@ -39,15 +39,15 @@ Schema changes must use file-per-migration files under
 Control database migrations with ([db/README.md](server/src/db/README.md)):
 
 ```bash
-npm run db:migration:create --name=add_embedding_index
-npm run db:migration:up
-npm run db:migration:down
+ppnpm run db:migration:create --name=add_embedding_index
+pnpm run db:migration:up
+pnpm run db:migration:down
 ```
 
 ## Translations
 
 The dashboard ships 60 locales. `en.json` is the source of truth and every other file mirrors
-its keys, so run `npm run check:i18n` from `client/` before opening a PR. See
+its keys, so run `pnpm run check:i18n` from `client/` before opening a PR. See
 [docs/TRANSLATION.md](docs/TRANSLATION.md) for the full rules and the settled Chinese
 terminology.
 
@@ -63,7 +63,7 @@ See what it would say without enabling anything:
 node .claude/hooks/contributing-check.mjs --preview
 ```
 
-To turn it on, add this to your own `.claude/settings.local.json` — nothing is wired up for you:
+To turn it on, add this to your own `.claude/settings.local.json` â€” nothing is wired up for you:
 
 ```json
 {
@@ -108,10 +108,10 @@ Bug reports are most useful with: your version (or commit), the provider involve
 
 Some useful fixes and experiments live in community forks and branches. If you are looking for prior art before starting, these are worth a read:
 
-- `fix-loopback-only` — restrict admin API access to localhost to avoid external exposure.
-- `fix-35-admin-security` — optional `ADMIN_PASSWORD` HMAC auth for remote admin API access.
-- `fix-101-markdown` — Markdown rendering in the Playground UI.
-- `fix-119-atomic-ratelimits` — atomic SQLite `BEGIN IMMEDIATE` transactions to fix rate-limit race conditions.
-- `feature-122-auto-routing` — per-request `smart` / `fast` / `cheap` routing strategies.
+- `fix-loopback-only` â€” restrict admin API access to localhost to avoid external exposure.
+- `fix-35-admin-security` â€” optional `ADMIN_PASSWORD` HMAC auth for remote admin API access.
+- `fix-101-markdown` â€” Markdown rendering in the Playground UI.
+- `fix-119-atomic-ratelimits` â€” atomic SQLite `BEGIN IMMEDIATE` transactions to fix rate-limit race conditions.
+- `feature-122-auto-routing` â€” per-request `smart` / `fast` / `cheap` routing strategies.
 
 If you port one of these into a PR, credit the original author in the PR description so they land in the Contributors list.

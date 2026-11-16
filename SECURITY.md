@@ -23,7 +23,7 @@ re-pull `:latest`).
 **Report a vulnerability**. That opens a private thread with the maintainer and
 keeps the details out of public issues.
 
-**Alternate:** email **support@freegateway.co** with `[freegateway security]` in the
+**Alternate:** email **the GitHub Security Advisory form linked above** with `[freegateway security]` in the
 subject.
 
 Please do not open a public issue, PR, or discussion for a security bug until a

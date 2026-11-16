@@ -21,22 +21,52 @@ function runPowerShell(args) {
   return execFile(powershell, args, { env });
 }
 
-async function makeFixture(t) {
+// The bootstrap scripts pick their package manager from whichever lockfile is
+// committed: pnpm-lock.yaml (what this repo ships) or package-lock.json.
+// Both paths are covered here, because a script that only knew about npm
+// refused to run against this repo's own lockfile.
+const LOCKFILES = {
+  npm: {
+    name: 'package-lock.json',
+    contents: '{"name":"bootstrap-fixture","lockfileVersion":3}\n',
+  },
+  pnpm: {
+    name: 'pnpm-lock.yaml',
+    contents: [
+      "lockfileVersion: '9.0'",
+      '',
+      'settings:',
+      '  autoInstallPeers: true',
+      '  excludeLinksFromLockfile: false',
+      '',
+      'importers:',
+      '',
+      '  .: {}',
+      '',
+      'packages: {}',
+      '',
+      'snapshots: {}',
+      '',
+    ].join('\n'),
+  },
+};
+
+async function makeFixture(t, flavour = 'npm') {
   const fixture = await mkdtemp(join(tmpdir(), 'freegateway-bootstrap-'));
-  const lockfile = join(fixture, 'package-lock.json');
-  const lockContents = '{"name":"bootstrap-fixture","lockfileVersion":3}\n';
-  const lockHash = createHash('sha256').update(lockContents).digest('hex');
+  const { name, contents } = LOCKFILES[flavour];
+  const lockfile = join(fixture, name);
+  const lockHash = createHash('sha256').update(contents).digest('hex');
 
   await writeFile(join(fixture, 'package.json'), '{"name":"bootstrap-fixture"}\n');
-  await writeFile(lockfile, lockContents);
+  await writeFile(lockfile, contents);
   await mkdir(join(fixture, 'node_modules'));
   await writeFile(join(fixture, 'node_modules', '.freegateway-bootstrap-lock'), lockHash);
   t.after(() => rm(fixture, { force: true, recursive: true }));
   return { fixture, lockfile };
 }
 
-async function assertEnvIsCreatedAndPreserved(runBootstrap, t) {
-  const { fixture } = await makeFixture(t);
+async function assertEnvIsCreatedAndPreserved(runBootstrap, t, flavour = 'npm') {
+  const { fixture } = await makeFixture(t, flavour);
 
   await runBootstrap(fixture);
   const generatedEnv = await readFile(join(fixture, '.env'), 'utf8');
@@ -48,8 +78,8 @@ async function assertEnvIsCreatedAndPreserved(runBootstrap, t) {
   assert.equal(await readFile(join(fixture, '.env'), 'utf8'), existingEnv);
 }
 
-async function assertMissingStampInstalls(runBootstrap, t) {
-  const { fixture, lockfile } = await makeFixture(t);
+async function assertMissingStampInstalls(runBootstrap, t, flavour = 'npm') {
+  const { fixture, lockfile } = await makeFixture(t, flavour);
   await rm(join(fixture, 'node_modules', '.freegateway-bootstrap-lock'));
 
   await runBootstrap(fixture);
@@ -96,5 +126,42 @@ test('Bash bootstrap installs when the lockfile stamp is missing', { skip: proce
   await assertMissingStampInstalls(
     (fixture) => execFile('bash', [join(projectRoot, 'scripts', 'dev-bootstrap.sh'), '--project-root', fixture]),
     t,
+  );
+});
+
+// The repo ships pnpm-lock.yaml, not package-lock.json. A bootstrap script
+// that hard-requires the npm lockfile exits before doing anything, so the
+// pnpm path needs its own coverage.
+test('PowerShell bootstrap works with a pnpm lockfile', { skip: powershell === null }, async (t) => {
+  await assertEnvIsCreatedAndPreserved(
+    (fixture) => runPowerShell([
+      '-NoProfile',
+      '-ExecutionPolicy', 'Bypass',
+      '-File', join(projectRoot, 'scripts', 'dev-bootstrap.ps1'),
+      '-ProjectRoot', fixture,
+    ]),
+    t,
+    'pnpm',
+  );
+});
+
+test('Bash bootstrap works with a pnpm lockfile', { skip: process.platform === 'win32' }, async (t) => {
+  await assertEnvIsCreatedAndPreserved(
+    (fixture) => execFile('bash', [join(projectRoot, 'scripts', 'dev-bootstrap.sh'), '--project-root', fixture]),
+    t,
+    'pnpm',
+  );
+});
+
+test('PowerShell bootstrap installs with a pnpm lockfile', { skip: powershell === null }, async (t) => {
+  await assertMissingStampInstalls(
+    (fixture) => runPowerShell([
+      '-NoProfile',
+      '-ExecutionPolicy', 'Bypass',
+      '-File', join(projectRoot, 'scripts', 'dev-bootstrap.ps1'),
+      '-ProjectRoot', fixture,
+    ]),
+    t,
+    'pnpm',
   );
 });

@@ -1,11 +1,11 @@
 # FreeGateway Desktop
 
-Lean Electron menu-bar app for [freegateway](https://github.com/tashfeenahmed/freegateway):
+Lean Electron menu-bar app for [freegateway](https://github.com/adnane007al/freegateway):
 runs the whole router locally on `127.0.0.1:31415`, with a dark-glass tray
 popover (live 24h request chart, quick stats, copy URL/key) and the full
 dashboard in a native-feeling window.
 
-Download an installer from [Releases](https://github.com/tashfeenahmed/freegateway/releases/latest),
+Download an installer from [Releases](https://github.com/adnane007al/freegateway/releases/latest),
 or build against the server and client sources in this checkout.
 
 On macOS, choose **arm64** for Apple Silicon (M-series) or **x64** for Intel.

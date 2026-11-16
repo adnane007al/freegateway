@@ -34,7 +34,7 @@ node --version
 Then clone and start FreeGateway:
 
 ```bash
-git clone https://github.com/tashfeenahmed/freegateway.git
+git clone https://github.com/adnane007al/freegateway.git
 cd freegateway
 npm install --no-audit --no-fund
 npm run dev

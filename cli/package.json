@@ -5,12 +5,12 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/tashfeenahmed/freegateway.git",
+    "url": "git+https://github.com/adnane007al/freegateway.git",
     "directory": "cli"
   },
-  "homepage": "https://github.com/tashfeenahmed/freegateway/tree/main/cli#readme",
+  "homepage": "https://github.com/adnane007al/freegateway/tree/main/cli#readme",
   "bugs": {
-    "url": "https://github.com/tashfeenahmed/freegateway/issues"
+    "url": "https://github.com/adnane007al/freegateway/issues"
   },
   "keywords": [
     "freegateway",

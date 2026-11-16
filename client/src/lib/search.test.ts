@@ -103,11 +103,11 @@ describe('searchContextMessage', () => {
       engine: 'tavily-search',
       results: [
         { title: 'README', url: 'https://github.com/x/y', content: 'a'.repeat(700), score: 0.9 },
-        { title: '', url: 'https://www.freegateway.co/docs', content: 'docs', score: 0.5 },
+        { title: '', url: 'https://github.com/adnane007al/freegateway/docs', content: 'docs', score: 0.5 },
       ],
     })
     expect(text).toContain('[1] README (https://github.com/x/y)')
-    expect(text).toContain('[2] freegateway.co (https://www.freegateway.co/docs)')
+    expect(text).toContain('[2] github.com (https://github.com/adnane007al/freegateway/docs)')
     expect(text).toContain(`${'a'.repeat(600)}…`)
     expect(text).not.toContain('a'.repeat(601))
   })

@@ -91,7 +91,7 @@ Example `freegateway.config.json`:
 ```json
 {
   "admin": { "email": "ops@example.com", "password": "change-me-min-8-chars" },
-  "license": "premium license key from freegateway.co",
+  "license": "premium license key",
   "keys": [
     { "platform": "groq", "key": "gsk_...", "label": "main" }
   ],
@@ -119,7 +119,7 @@ secrets, so protect it like `ENCRYPTION_KEY`.
 Images are published to GitHub Container Registry:
 
 ```bash
-docker pull ghcr.io/tashfeenahmed/freegateway:latest
+docker pull ghcr.io/adnane007al/freegateway:latest
 ```
 
 The Docker workflow builds pull requests without pushing. After this repository receives the workflow on `main`, pushes to `main` and version tags publish images to GHCR automatically.
