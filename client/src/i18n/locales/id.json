@@ -735,7 +735,11 @@
     "groupHandleCopyFailed": "Couldn't copy to the clipboard",
     "capUsagePercent": "{used} of {cap} ({pct}%)",
     "capWarning80": "Over 80% of this cap — the server logs a budget alert at this point.",
-    "capExhaustedWarning": "Cap reached — new requests are rejected until the monthly reset."
+    "capExhaustedWarning": "Cap reached — new requests are rejected until the monthly reset.",
+    "statTotal": "Total keys",
+    "statHealthy": "Healthy",
+    "statDegraded": "Degraded",
+    "statDown": "Down"
   },
   "backups": {
     "title": "Backups",
@@ -1333,5 +1337,17 @@
     "tryConfidence": "Yakin {value}%",
     "tryServedBy": "{model} · {latency} ms",
     "exampleTitle": "Contoh permintaan"
+  },
+  "shortcuts": {
+    "title": "Keyboard shortcuts",
+    "description": "Navigate FreeGateway faster.",
+    "openPalette": "Open command palette",
+    "goModels": "Go to Models",
+    "goKeys": "Go to Keys",
+    "goAnalytics": "Go to Analytics",
+    "goPlayground": "Go to Playground",
+    "showHelp": "Show this shortcuts help",
+    "close": "Close dialog / palette",
+    "closeButton": "Close"
   }
 }

@@ -1,4 +1,4 @@
-import { useEffect, useState, type ReactNode } from 'react'
+import { useCallback, useEffect, useState, type ReactNode } from 'react'
 import { BrowserRouter, Routes, Route, Navigate, NavLink, Link, useLocation, useNavigate } from 'react-router-dom'
 import { MutationCache, QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { ChevronDown, KeyRound, LogOut, Menu, MoreHorizontal, RefreshCw, Search, Settings, Sparkles } from 'lucide-react'
@@ -26,6 +26,7 @@ import { UpdateReminder } from '@/components/update-reminder'
 import { NewBuildPrompt } from '@/components/new-build-prompt'
 import { Sidebar } from '@/components/sidebar'
 import { ShortcutsDialog } from '@/components/shortcuts-dialog'
+import { KeyboardShortcuts } from '@/components/keyboard-shortcuts'
 import { usePremium } from '@/hooks/use-premium'
 import { I18nProvider, useI18n } from '@/i18n'
 import { logout } from '@/lib/api'
@@ -465,21 +466,16 @@ function AppShell({ children }: { children: ReactNode }) {
 
 function App() {
   const [shortcutsOpen, setShortcutsOpen] = useState(false)
-  useEffect(() => {
-    const handler = (e: KeyboardEvent) => {
-      const target = e.target as HTMLElement | null
-      if (target && (target.tagName === 'INPUT' || target.tagName === 'TEXTAREA' || target.isContentEditable)) return
-      if (e.key === '?') { e.preventDefault(); setShortcutsOpen(true) }
-    }
-    window.addEventListener('keydown', handler)
-    return () => window.removeEventListener('keydown', handler)
-  }, [])
+  const showShortcuts = useCallback(() => setShortcutsOpen(true), [])
   return (
     <QueryClientProvider client={queryClient}>
       <ThemeProvider>
         <I18nProvider>
           <BrowserRouter basename={import.meta.env.BASE_URL}>
             <AuthGate>
+              {/* Global shortcuts. Inside the router (it navigates) and inside
+                  the auth gate (a signed-out visitor has no pages to jump to). */}
+              <KeyboardShortcuts onShowHelp={showShortcuts} />
               {/* Column, so a full-bleed route can claim the height the navbar
                   leaves without anyone having to know how tall the navbar is.
                   Fixed-position children (toaster, palette, reminder) are out of

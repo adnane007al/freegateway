@@ -77,6 +77,38 @@ export default function KeysPage() {
     },
   })
 
+  // Provider-count tiles above the provider list.
+  //
+  // `Array.isArray` matters here: `/api/health` normally answers with an
+  // object, but `healthData?.keys` on an ARRAY returns Array.prototype.keys
+  // (a function), which `?? []` does not replace because a function is neither
+  // null nor undefined. The next line then called `.filter` on that function
+  // and threw, taking the whole page down with it. Guard the shape instead of
+  // assuming it.
+  const healthKeys = Array.isArray(healthData?.keys) ? healthData.keys : []
+  const keyStats = [
+    {
+      label: t('keys.statTotal'),
+      value: healthKeys.length,
+      color: 'text-foreground',
+    },
+    {
+      label: t('keys.statHealthy'),
+      value: healthKeys.filter(k => k.status === 'healthy').length,
+      color: 'text-emerald-600 dark:text-emerald-400',
+    },
+    {
+      label: t('keys.statDegraded'),
+      value: healthKeys.filter(k => k.status === 'degraded').length,
+      color: 'text-amber-600 dark:text-amber-400',
+    },
+    {
+      label: t('keys.statDown'),
+      value: healthKeys.filter(k => k.status === 'down' || k.status === 'error').length,
+      color: 'text-destructive',
+    },
+  ]
+
   return (
     <div>
       <PageHeader
@@ -132,25 +164,12 @@ export default function KeysPage() {
         {tab === 'providers' && (
           <>
             <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
-              {(() => {
-                const ks = healthData?.keys ?? []
-                const healthy = ks.filter(k => k.status === 'healthy').length
-                const degraded = ks.filter(k => k.status === 'degraded').length
-                const down = ks.filter(k => k.status === 'down' || k.status === 'error').length
-                const total = ks.length
-                const cards = [
-                  { label: 'Total keys', value: total, color: 'text-foreground' },
-                  { label: 'Healthy', value: healthy, color: 'text-emerald-600 dark:text-emerald-400' },
-                  { label: 'Degraded', value: degraded, color: 'text-amber-600 dark:text-amber-400' },
-                  { label: 'Down', value: down, color: 'text-destructive' },
-                ]
-                return cards.map(c => (
-                  <div key={c.label} className="rounded-sm border-2 border-foreground bg-card p-3 shadow-[3px_3px_0_0_var(--foreground)]">
-                    <p className="text-[10px] font-bold uppercase tracking-wide text-muted-foreground">{c.label}</p>
-                    <p className={`mt-1 text-2xl font-black ${c.color}`}>{c.value}</p>
-                  </div>
-                ))
-              })()}
+              {keyStats.map(c => (
+                <div key={c.label} className="rounded-sm border-2 border-foreground bg-card p-3 shadow-[3px_3px_0_0_var(--foreground)]">
+                  <p className="text-[10px] font-bold uppercase tracking-wide text-muted-foreground">{c.label}</p>
+                  <p className={`mt-1 text-2xl font-black ${c.color}`}>{c.value}</p>
+                </div>
+              ))}
             </div>
             <ProviderChecklistSection onAddKey={platform => openAddKey(platform as Platform)} />
             <ProviderList onAddKey={() => openAddKey()} />
