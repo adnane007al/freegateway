@@ -1,6 +1,6 @@
 {
   "name": "freegateway-desktop",
-  "version": "0.16.22",
+  "version": "0.16.23",
   "description": "FreeGateway menu-bar app — local OpenAI-compatible LLM router",
   "author": {
     "name": "adnane007al",
