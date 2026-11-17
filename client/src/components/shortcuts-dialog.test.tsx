@@ -3,7 +3,7 @@
 // The shortcut sheet renders the localized strings, and every row it shows
 // corresponds to a shortcut that exists. The `g`-sequences live in
 // keyboard-shortcuts.tsx; keeping the two in step is the point of this test.
-import { afterEach, beforeAll, beforeEach, describe, expect, it, vi } from 'vitest'
+import { afterEach, beforeAll, beforeEach, describe, expect, it } from 'vitest'
 import { act } from 'react'
 import { createRoot, type Root } from 'react-dom/client'
 import { I18nProvider } from '@/i18n'
