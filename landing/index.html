@@ -404,6 +404,8 @@ code,.mono{font-family:var(--mono);font-size:.88em;font-variant-ligatures:none}
       <img src="./assets/icon.svg" alt="" width="26" height="26" />
       <b>FreeGateway</b>
     </a>
+    <iframe src="https://ghbtns.com/github-btn.html?user=adnane007al&repo=freegateway&type=star&count=true&size=large" frameborder="0" scrolling="0" width="170" height="30" title="GitHub Stars" style="margin-left:8px"></iframe>
+    <span id="download-count" style="font-family:var(--mono,monospace);font-size:12px;color:var(--dim,#968CA2);margin-left:8px">Downloads: loading…</span>
     <nav class="nav__links" aria-label="Sections">
       <a href="#routing">Routing</a>
       <a href="#surfaces">API surfaces</a>
@@ -863,6 +865,8 @@ pnpm run desktop:dev</pre>
         <a href="https://github.com/adnane007al/freegateway/tree/main/docs/en">Documentation</a>
         <a href="https://github.com/adnane007al/freegateway/blob/main/LICENSE">MIT License</a>
         <a href="https://github.com/adnane007al/freegateway/issues">Issues</a>
+        <iframe src="https://ghbtns.com/github-btn.html?user=adnane007al&repo=freegateway&type=star&count=true&size=large" frameborder="0" scrolling="0" width="170" height="30" title="GitHub Stars" style="vertical-align:middle"></iframe>
+        <span id="download-count" style="font-family:var(--mono);font-size:12px;color:var(--dim)">Downloads: loading…</span>
       </div>
     </div>
     <div class="foot__fine">
@@ -1051,8 +1055,17 @@ pnpm run desktop:dev</pre>
         if (urls[btn.dataset.os]) btn.dataset.url = urls[btn.dataset.os];
       });
     })
-    .catch(function () {});
-})();
-</script>
+  (function () {
+    var el = document.getElementById("download-count");
+    fetch("https://api.github.com/repos/adnane007al/freegateway/releases", { headers: { "Accept": "application/vnd.github+json" } })
+      .then(function (r) { if (!r.ok) throw new Error(); return r.json(); })
+      .then(function (releases) {
+        var total = 0;
+        releases.forEach(function (r) { (r.assets || []).forEach(function (a) { total += a.download_count || 0; }); });
+        el.textContent = "Downloads: " + total.toLocaleString();
+      })
+      .catch(function () { el.textContent = "Downloads: 0"; });
+  })();
+})();</script>
 </body>
 </html>
